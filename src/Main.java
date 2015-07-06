@@ -7,6 +7,7 @@ import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Main class which handles program execution.
@@ -14,7 +15,7 @@ import java.io.IOException;
  * @author Aneesh Bhansali
  */
 public class Main {
-    private static String API_KEY = "AIzaSyCXUIDlZtD_gXKvRIwx49GkX8ZprB5qBeE";
+    private static String API_KEY = "AIzaSyCKM_JAXF1kom4kYzFZetL0OcxuPI9DhlM";
     private static String APPLICATION_NAME = "YouTubeHandler";
     private static String CHANNEL_USERNAME = "PowerfulJRE";
 
@@ -38,5 +39,11 @@ public class Main {
         // Create the ChannelHandler to do the heavy lifting
         ChannelHandler channelHandler = new ChannelHandler(youTube, API_KEY,
                 CHANNEL_USERNAME);
+
+        // Print the uploads in order of popularity
+        List<VideoHandler> videos = channelHandler.listUploads();
+        for (VideoHandler video : videos) {
+            System.out.println(video);
+        }
     }
 }
