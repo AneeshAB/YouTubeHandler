@@ -1,3 +1,6 @@
 .DS_Store
 .idea
 out
+src/META-INF/
+*.jar
+output.txt
