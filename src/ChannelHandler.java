@@ -44,8 +44,13 @@ public class ChannelHandler {
         try {
             this.channel = findChannel();
         } catch (ChannelNotFoundException e) {
-            LOG.severe(e.getMessage());
-            System.exit(ErrorCodes.EXIT_FAILURE);
+            try {
+                this.channel = findChannel(true);
+            }
+            catch (ChannelNotFoundException ce) {
+                LOG.severe(ce.getMessage());
+                System.exit(ErrorCodes.EXIT_FAILURE);
+            }
         }
     }
 
@@ -58,12 +63,21 @@ public class ChannelHandler {
      * @throws ChannelNotFoundException If the channel is not found.
      */
     private Channel findChannel() throws ChannelNotFoundException {
+        return findChannel(false);
+    }
+
+    private Channel findChannel(boolean ID) throws ChannelNotFoundException {
         // Perform the get request to get the channel
         try {
             YouTube.Channels.List request = youTube.channels().list(
                     CHANNEL_REQUEST_PART);
             request.setKey(apiKey);
-            request.setForUsername(username);
+            if (ID) {
+                request.setId(username);
+            }
+            else {
+                request.setForUsername(username);
+            }
             List<Channel> channels = request.execute().getItems();
 
             // If the channel list is not null, return the first item, which

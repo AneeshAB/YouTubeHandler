@@ -17,12 +17,14 @@ import java.util.List;
 public class Main {
     private static String API_KEY = "AIzaSyCKM_JAXF1kom4kYzFZetL0OcxuPI9DhlM";
     private static String APPLICATION_NAME = "YouTubeHandler";
-    private static String CHANNEL_USERNAME = "PowerfulJRE";
 
     /**
      * Entry point to program.
      */
     public static void main(String[] args) {
+        // Get the channel name
+        String channelUsername = args[0];
+
         // Necessary objects for creating a new YouTube api object
         HttpTransport httpTransport = new NetHttpTransport();
         JsonFactory jsonFactory = new JacksonFactory();
@@ -38,7 +40,7 @@ public class Main {
 
         // Create the ChannelHandler to do the heavy lifting
         ChannelHandler channelHandler = new ChannelHandler(youTube, API_KEY,
-                CHANNEL_USERNAME);
+                channelUsername);
 
         // Print the uploads in order of popularity
         List<VideoHandler> videos = channelHandler.listUploads();
