@@ -15,6 +15,8 @@ public class VideoHandler implements Comparable {
     private int numViews;
     private Date publishDate;
 
+    private double popularity = -1;
+
     // Constructors
     VideoHandler(String title, int numViews, DateTime publishDate) {
         this.title = title;
@@ -30,15 +32,21 @@ public class VideoHandler implements Comparable {
      * @return The popularity of the video as a double.
      */
     double popularity() {
-        // Now
-        Date now = new Date();
+        // Only proceed if popularity hasn't been calculated
+        if (popularity == - 1) {
+            // Now
+            Date now = new Date();
 
-        // Days since upload; add 1 to avoid divide by 0
-        double diff = (now.getTime() - publishDate.getTime()) /
-                (1000 * 60 * 60 * 24) + 1;
+            // Days since upload; add 1 to avoid divide by 0
+            double diff = (now.getTime() - publishDate.getTime()) /
+                    (1000 * 60 * 60 * 24) + 1;
+
+            // Calculate the popularity
+            popularity = (double) numViews / diff;
+        }
 
         // Return the popularity
-        return (double)numViews / diff;
+        return popularity;
     }
 
     // Comparable methods
