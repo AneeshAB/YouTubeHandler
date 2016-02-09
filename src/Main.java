@@ -74,7 +74,9 @@ public class Main {
             for (VideoHandler videoHandler : videos) {
                 totalPopularity += videoHandler.popularity();
             }
-            System.err.println("Total popularity: " + totalPopularity); // Debug
+
+            // Print total popularity of all videos
+            System.out.println("Total popularity: " + totalPopularity);
 
             // Choose a random video
             int index = -1;  // Index of video in list of videos
